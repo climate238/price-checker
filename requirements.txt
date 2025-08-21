@@ -1,0 +1,5 @@
+selenium==4.15.2
+webdriver-manager==4.0.1
+beautifulsoup4==4.12.2
+selenium-stealth==1.0.6
+schedule==1.2.0
