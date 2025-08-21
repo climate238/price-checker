@@ -266,7 +266,7 @@ def check_price_scheduled():
     logger = logging.getLogger(__name__)
     logger.info("=== Starting scheduled price check ===")
     
-    # Set up Chrome options for speed
+    # Set up Chrome options for GitHub Actions
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
@@ -274,6 +274,10 @@ def check_price_scheduled():
     options.add_argument("--disable-gpu")
     options.add_argument("--disable-images")
     options.add_argument("--disable-javascript")
+    options.add_argument("--window-size=1920,1080")
+    options.add_argument("--disable-extensions")
+    options.add_argument("--proxy-server='direct://'")
+    options.add_argument("--proxy-bypass-list=*")
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
     options.add_experimental_option('useAutomationExtension', False)
 
@@ -535,27 +539,11 @@ def test_email():
         logger.error("❌ Test email failed!")
 
 if __name__ == "__main__":
-    # IMPORTANT: Configure your email credentials before running!
-    if not SENDER_EMAIL or not SENDER_PASSWORD:
-        print("⚠️  EMAIL SETUP REQUIRED!")
-        print("Please configure SENDER_EMAIL and SENDER_PASSWORD in the script.")
-        print("\nSetup Instructions:")
-        print("1. Set SENDER_EMAIL to your Gmail address")
-        print("2. Generate an App Password for Gmail:")
-        print("   - Go to Google Account settings")
-        print("   - Security > 2-Step Verification > App passwords")
-        print("   - Generate password for 'Mail'")
-        print("3. Set SENDER_PASSWORD to the generated app password")
-        print("4. Run the script again")
-        exit()
+    import sys
     
-    # Choose one of the following:
-    
-    # 1. Run scheduler (for daily automation)
-    run_scheduler()
-    
-    # 2. Run once (for testing)
-    # run_once()
-    
-    # 3. Test email functionality
-    # test_email()
+    # For GitHub Actions, we'll run once per execution
+    if len(sys.argv) > 1 and sys.argv[1] == "test-email":
+        test_email()
+    else:
+        # Run the price check once
+        run_once()
