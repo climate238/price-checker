@@ -30,11 +30,11 @@ import re
 
 # Default Configuration (can be overridden by environment variables)
 URL = "https://sameday.costco.com/store/costco/products/19230835-kirkland-signature-wild-alaskan-cod-individually-wrapped-2-lb-2-lb"
-TARGET_PRICE = 21.00
-ZIP_CODE = "78726"
+TARGET_PRICE = ""# Will be set from environment
+ZIP_CODE = ""# Will be set from environment
 
 # Email Configuration (will be loaded from environment variables)
-RECIPIENT_EMAIL = "climate127@gmail.com"
+RECIPIENT_EMAIL = ""# Will be set from environment
 SENDER_EMAIL = ""  # Will be set from environment
 SENDER_PASSWORD = ""  # Will be set from environment
 SMTP_SERVER = "smtp.gmail.com"
@@ -592,8 +592,8 @@ if __name__ == "__main__":
         print("   - SENDER_EMAIL: Your Gmail address")
         print("   - SENDER_PASSWORD: Your Gmail app password")
         print("   - RECIPIENT_EMAIL: Email to receive alerts")
-        print("   - TARGET_PRICE: Your target price (e.g., '21.00')")
-        print("   - ZIP_CODE: Your ZIP code (e.g., '78726')")
+        print("   - TARGET_PRICE: Your target price (e.g., '')")
+        print("   - ZIP_CODE: Your ZIP code (e.g., '')")
         
         # Don't exit completely in GitHub Actions - still try to run without email
         if os.getenv('GITHUB_ACTIONS'):
